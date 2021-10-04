@@ -22,7 +22,6 @@ class HomeItem extends React.Component<HomeItemProps, HomeItemState> {
         this.state = { isVisible: false };
     }
     onChange = (isVisibleI: boolean) => {
-        console.log("is visible " + isVisibleI);
         this.setState({ isVisible: isVisibleI });
     };
     showProperty = () => {
@@ -33,7 +32,7 @@ class HomeItem extends React.Component<HomeItemProps, HomeItemState> {
         return <React.Fragment>
 
             <td >
-               {x == undefined ? "bbbbb" :  x.sales}
+               {x == undefined ? "error" :  x.sales}
             </td>
             <br />
         </React.Fragment>

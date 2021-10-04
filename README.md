@@ -7,9 +7,10 @@ This is a react project with typescipt.
  * `npm run start`
  * visit `http://localhost:3000/`
   
-  
+
 ## architectural overview.
-The project contains only one stateful widget `Home`
+The project contains only two class based components `Home` and `HomeItem`.Home draws the table and homeItem populates cells in the table.
+homeItem checks if ceel is in view to reduce memory usage before getting appropriate values from `data.json`
 
 ## Next steps.
 
