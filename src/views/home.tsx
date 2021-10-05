@@ -3,6 +3,7 @@ import { Component } from 'react';
 import data from "../data/data.json";
 import Product from '../model/product';
 import HomeItem from "./components/homeItem";
+import TotalComponents from './components/totalComponent';
 interface HomePageProps {
 
 }
@@ -23,6 +24,9 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
 
     subCategory: Map<string, Array<string>> = new Map();
 
+
+
+
     componentDidMount() {
 
         for (let index = 0; index < data.length; index++) {
@@ -33,7 +37,6 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
             if (stateItem == null) {
                 let st = this.state.states;
                 st.push(element.state);
-                st.sort();
                 this.setState({
                     states: [...st]
                 })
@@ -65,6 +68,13 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
             }
         }
 
+        // fetch data from network
+       this.fetchDataFromNetwork()
+
+    }
+
+    fetchDataFromNetwork = () =>{
+        // axios.post("domain", {body}). then((response: AxiosResponse) =>{/**set state here */})   .catch((error: AxiosError) => {})
     }
 
 
@@ -78,13 +88,14 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
                     <thead>
 
                         <tr>
-                            <th colSpan={2}>Products </th>
-                            <th colSpan={this.state.states.length}>states </th>
+                            <th colSpan={2} className="bg-primary text-white">Products </th>
+                            <th colSpan={this.state.states.length} className="ml-5 bg-primary text-white">states </th>
                         </tr>
                         <tr>
                             <th>Catgory </th>
                             <th>Sub- Catgory </th>
                             {
+
                                 this.state.states.map((statesItem, index) => {
 
                                     return <th key={index}> {statesItem}</th>
@@ -99,7 +110,9 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
                         {
                             this.state.categories.map((categoryItem, index) => {
 
-                                return <React.Fragment> <tr key={index}>
+                                return <React.Fragment> 
+                                    
+                                    <tr key={index}>
                                     <th> {categoryItem}
 
                                     </th>
@@ -127,8 +140,8 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
 
                                                 {/* {statesItem} */}
                                                 {this.subCategory.get(categoryItem)?.map((subCategoryItem, index4) => {
-                                                   
-                                                    return <HomeItem state={dataItem.state}  subCategory={subCategoryItem} category={categoryItem}/>
+
+                                                    return <HomeItem state={dataItem.state} subCategory={subCategoryItem} category={categoryItem} />
 
                                                 })
                                                 }
@@ -142,7 +155,17 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
 
 
                                 </tr>
-                                    <tr> {categoryItem} Total</tr>
+                                    <tr>
+                                        
+                                         <th>{categoryItem} Total</th>
+                                         <th></th>
+                                         {
+                                          this.state.states.map((dataItem, index3) => {
+                                            return <TotalComponents  subCategory={this.subCategory} state={dataItem} category={categoryItem}/>
+                                        })
+                                    }
+
+                                     </tr>
                                 </React.Fragment>
 
                             })
@@ -151,9 +174,9 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
                         }
 
 
-                       
 
-                       
+
+
 
                     </tbody>
                 </table>

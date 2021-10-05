@@ -32,7 +32,7 @@ class HomeItem extends React.Component<HomeItemProps, HomeItemState> {
         return <React.Fragment>
 
             <td >
-               {x == undefined ? "error" :  x.sales}
+               {x == undefined ? "error" :  <span id={x.state+x.category+x.subCategory}  className={x.state + " " + x.subCategory + " " + x.category}>{x.sales}</span>}
             </td>
             <br />
         </React.Fragment>
@@ -49,9 +49,11 @@ class HomeItem extends React.Component<HomeItemProps, HomeItemState> {
                             this.showProperty()
                             : <React.Fragment>
                                 <td >
-                                    <small>loading</small>
+                                    <small>loading...</small>
+                                    
                                 </td>
                                 <br />
+                               
                             </React.Fragment>
                     }
                 </React.Fragment>
